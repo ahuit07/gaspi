@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}">
+
+<head>
+	<meta charset="utf-8">
+</head>
+
+<body class="d-flex flex-column h-100">
+	<section layout:fragment="content">
+
+		<!-- Begin page content -->
+		<main class="flex-shrink-0">
+			<div class="container">
+                <div class="row">
+                    <div class="col col-lg-2">
+                    </div>
+                    <div class="col col-lg-2">
+                        <img th:src="@{/images/proveedores.png}" alt="Proveedores">
+                    </div>
+                    <div class="col col-lg-8">
+                        <br><br><h1>Proveedores</h1>
+                        <button type="button" class="btn btn-primary" th:text="${welcome.titleWelcomeButton}"
+						th:onclick="|window.location.href='/proveedores'|"></button>
+                    </div>
+                </div>
+               
+                <form th:action="@{/guardarProveedor}" th:object="${proveedorVO}" method="post">
+                    <div class="mb-3">
+                      <label for="nombreProveedor" class="form-label">Nombre: </label>
+                      <input type="text" class="form-control" id="nombreProveedor" th:field="*{nombre}" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="razonSocialProveedor" class="form-label">Razon Social: </label>
+                      <input type="text" class="form-control" id="razonSocialProveedor" th:field="*{razonSocial}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccionProveedor" class="form-label">Dirección: </label>
+                        <input type="text" class="form-control" id="direccionProveedor" th:field="*{direccion}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                  </form>
+                  
+                  <br>
+                  <div th:if="${mensajeExito != null}">
+					  <div class="alert alert-success alert-dismissible fade show" role="alert" th:text="${mensajeExito}">
+	                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	                  </div>
+				  </div>
+                  
+                
+                  <div th:if="${mensajeDuplicidad != null}">
+	                  <div class="alert alert-warning alert-dismissible fade show" role="alert" 
+	                  th:text="${mensajeDuplicidad}">
+	                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	                  </div>
+                  </div>
+                 
+			</div>
+		</main>
+	</section>
+
+</body>
+
+</html>

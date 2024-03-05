@@ -1,0 +1,104 @@
+<!doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+	<meta charset="utf-8">
+</head>
+
+<body class="d-flex flex-column h-100">
+	<section layout:fragment="content">
+
+		<!-- Begin page content -->
+		<main class="flex-shrink-0">
+			<div class="container">
+				<div class="row">
+					<div class="col col-lg-2">
+					</div>
+					<div class="col col-lg-2">
+						<img th:src="@{/images/proveedores.png}" alt="Proveedores">
+					</div>
+					<div class="col col-lg-6">
+						<br><br>
+						<h1>Proveedores</h1>
+					</div>
+					<div class="col col-lg-2">
+						<br><br>
+						<button type="button" class="btn btn-primary"
+							th:onclick="|window.location.href='/nuevoProveedor'|">Nuevo Proveedor</button>
+					</div>
+				</div>
+
+
+
+				<div class="row justify-content-md-center">
+					<div class="col col-lg-1">
+					</div>
+					<div class="col col-lg-10">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col" hidden>id</th>
+									<th scope="col">Nombre</th>
+									<th scope="col">Razón Social</th>
+									<th scope="col">Dirección</th>
+									<th scope="col">Eliminar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="proveedor : ${listaProveedores.content}">
+									<td hidden th:text="${proveedor.idProveedor}"></td>
+									<td th:text="${proveedor.nbProveedor}"></td>
+									<td th:text="${proveedor.rsProveedor}"></td>
+									<td th:text="${proveedor.dirProveedor}"></td>
+									<td>
+										<a class="btn btn-warning"
+											th:href="@{/eliminarProveedor/{id}(id=${proveedor.getIdProveedor()})}">
+											<img th:src="@{/images/deleteProveedor.png}" alt="Proveedores">
+										</a>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<nav aria-label="Page navigation">
+							<ul class="pagination">
+								<li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+									<a class="page-link" th:href="@{/proveedores(page=0)}">First</a>
+								</li>
+								<li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+									<a class="page-link" th:href="@{/proveedores(page=${currentPage - 1})}">Previous</a>
+								</li>
+								<li class="page-item" th:each="i : ${#numbers.sequence(0, listaProveedores.totalPages - 1)}"
+									th:classappend="${currentPage == i ? 'active' : ''}">
+									<a class="page-link" th:href="@{/proveedores(page=${i})}" th:text="${i + 1}"></a>
+								</li>
+								<li class="page-item"
+									th:classappend="${currentPage == listaProveedores.totalPages - 1 ? 'disabled' : ''}">
+									<a class="page-link" th:href="@{/proveedores(page=${currentPage + 1})}">Next</a>
+								</li>
+								<li class="page-item"
+									th:classappend="${currentPage == listaProveedores.totalPages - 1 ? 'disabled' : ''}">
+									<a class="page-link"
+										th:href="@{/proveedores(page=${listaProveedores.totalPages - 1})}">Last</a>
+								</li>
+							</ul>
+						</nav>
+						<br>
+						<div th:if="${mensajeExito != null}">
+							<div class="alert alert-success alert-dismissible fade show" role="alert"
+								th:text="${mensajeExito}">
+								<button type="button" class="btn-close" data-bs-dismiss="alert"
+									aria-label="Close"></button>
+							</div>
+						</div>
+					</div>
+					<div class="col col-lg-1">
+					</div>
+				</div>
+			</div>
+		</main>
+	</section>
+
+</body>
+
+</html>
